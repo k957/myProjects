@@ -2,6 +2,7 @@ package com.example.dto;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,12 +18,14 @@ public class FeedDto {
 	private int quantity;
 	@NotNull(message = "price cannot be null")
 	private float price;
-
-	private float sale_price;
+	@Column(name="sale_price")
+	private float salePrice;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	private Date start_date = null;
+	@Column(name="start_date")
+	private Date startDate = null;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-	private Date end_date = null;
+	@Column(name="end_date")
+	private Date endDate = null;
 
 	public Long getMerchantId() {
 		return merchantId;
@@ -64,28 +67,28 @@ public class FeedDto {
 		this.price = price;
 	}
 
-	public float getSale_price() {
-		return sale_price;
+	public float getSalePrice() {
+		return salePrice;
 	}
 
-	public void setSale_price(float sale_price) {
-		this.sale_price = sale_price;
+	public void setSalePrice(float salePrice) {
+		this.salePrice = salePrice;
 	}
 
-	public Date getStart_date() {
-		return start_date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEnd_date() {
-		return end_date;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 }

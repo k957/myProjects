@@ -4,6 +4,8 @@ import java.util.Date;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +25,7 @@ public class Store {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.ALL})
 	private List<PaymentMethod> paymentMethods;
 
 	@ManyToOne
@@ -43,14 +45,16 @@ public class Store {
 
 	private String name;
 	private String description;
-	private String postal_code;
+	@Column(name="postal_code")
+	private String postalCode;
 	private String address;
 	private String phone;
 	private double latitude;
 	private double longitude;
-	private String opening_hours;
-
-	private Date created_at;
+	@Column(name="opening_hours")
+	private String openingHours;
+	@Column(name="created_at")
+	private Date createdAt;
 
 	public Long getId() {
 		return id;
@@ -94,12 +98,12 @@ public class Store {
 		this.description = description;
 	}
 
-	public String getPostal_code() {
-		return postal_code;
+	public String getPostalCode() {
+		return postalCode;
 	}
 
-	public void setPostal_code(String postal_code) {
-		this.postal_code = postal_code;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public String getAddress() {
@@ -134,25 +138,24 @@ public class Store {
 		this.longitude = longitude;
 	}
 
-	public String getOpening_hours() {
-		return opening_hours;
+	public String getOpeningHours() {
+		return openingHours;
 	}
 
-	public void setOpening_hours(String opening_hours) {
-		this.opening_hours = opening_hours;
+	public void setOpeningHours(String openingHours) {
+		this.openingHours = openingHours;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public Store() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

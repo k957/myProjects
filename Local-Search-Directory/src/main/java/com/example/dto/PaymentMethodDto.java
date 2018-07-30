@@ -1,8 +1,9 @@
 package com.example.dto;
 
-public class PaymentMethodDto {
 
-	private Long store_id;
+public class PaymentMethodDto {
+	
+	private Long storeId=null;
 	private String code;
 	private String name;
 
@@ -10,12 +11,12 @@ public class PaymentMethodDto {
 		return code;
 	}
 
-	public Long getStore_id() {
-		return store_id;
+	public Long getStoreId() {
+		return storeId;
 	}
 
-	public void setStore_id(Long store_id) {
-		this.store_id = store_id;
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
 	}
 
 	public void setCode(String code) {

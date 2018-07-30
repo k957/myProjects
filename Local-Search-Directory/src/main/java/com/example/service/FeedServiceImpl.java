@@ -34,18 +34,19 @@ public class FeedServiceImpl implements IFeedService {
 	}
 
 	@Override
-	public Feed update(FeedDto FeedDto) {
+	public Feed update(FeedDto feedDto) {
 		return null;
 	}
 
 	@Override
-	public void delete(List<Feed> FeedList) {
+	public void delete(List<Feed> feedList) {
+		//made in controller
 	}
 
 	@Override
 	public Feed create(FeedDto feedDto) {
 		Feed feed = feedAssembler.createFeedEntity(feedDto);
-		feed.setCreated_at(new Date());
+		feed.setCreatedAt(new Date());
 		feedRepository.save(feed);
 		return feed;
 	}

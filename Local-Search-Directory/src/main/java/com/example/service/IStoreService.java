@@ -6,13 +6,13 @@ import com.example.dto.StoreDto;
 import com.example.model.Store;
 
 public interface IStoreService {
-	Store create(StoreDto StoreDto);
+	Store create(StoreDto storeDto);
 
 	List<Store> viewAll();
 
 	Store viewOne(Long id);
 
-	Store update(Store StoreDto);
+	Store update(Store storeDto);
 
-	void delete(List<Store> StoreList);
+	void delete(List<Store> storeList);
 }

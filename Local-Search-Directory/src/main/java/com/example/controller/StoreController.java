@@ -24,10 +24,13 @@ import com.example.model.Store;
 import com.example.repository.IStoreRepository;
 import com.example.service.IStoreService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import redis.clients.jedis.Jedis;
 
 @RestController
 @RequestMapping("/v1/store")
+@Api(value="Store Controller REST Endpoint",description="Store Controller API")
 public class StoreController {
 
 	@Autowired
@@ -40,6 +43,7 @@ public class StoreController {
 	Jedis jedis = new Jedis("localhost");
 
 	@GetMapping
+	@ApiOperation(value="returns the list of all Stores available",response=StoreDto.class)
 	public ResponseEntity<?> viewAll() {
 		if (jedis.get("users::1") != null) {
 			List<Store> store = storeService.viewAll();
@@ -51,6 +55,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation(value="returns one Store whose ID provided in the URL",response=StoreDto.class)
 	public ResponseEntity<?> viewOne(@PathVariable(value = "id") Long id) {
 		if (jedis.get("users::1") != null) {
 			Store store = storeService.viewOne(id);
@@ -63,6 +68,7 @@ public class StoreController {
 	}
 
 	@PostMapping
+	@ApiOperation(value="method to create Store",response=StoreDto.class)
 	public ResponseEntity<?> create(@Valid @RequestBody StoreDto storeDto) {
 		if (jedis.get("users::1") != null) {
 			
@@ -75,16 +81,17 @@ public class StoreController {
 	}
 
 	@PutMapping("/{id}")
+	@ApiOperation(value="Updates Store whose ID is provided in the URL",response=StoreDto.class)
 	public ResponseEntity<?> update(@Valid @RequestBody StoreDto storeDto, @PathVariable(value = "id") Long id) {
 		if (jedis.get("users::1") != null) {
 			Store store = storeRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Store", "StoreID", id));
-			store.setCreated_at(new Date());
+			store.setCreatedAt(new Date());
 			store.setAddress(storeDto.getAddress());
 			store.setDescription(storeDto.getDescription());
-			store.setOpening_hours(storeDto.getOpening_hours());
+			store.setOpeningHours(storeDto.getOpeningHours());
 			store.setPhone(storeDto.getPhone());
-			store.setPostal_code(storeDto.getPostal_code());
+			store.setPostalCode(storeDto.getPostalCode());
 			store.setLatitude(storeDto.getLatitude());
 			store.setLongitude(storeDto.getLongitude());
 			Store updatedStore = storeRepository.save(store);
@@ -96,6 +103,7 @@ public class StoreController {
 	}
 
 	@DeleteMapping("/{id}")
+	@ApiOperation(value="deletes Store whose ID is provided in the URL",response=StoreDto.class)
 	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
 		if (jedis.get("users::1") != null) {
 			Store store = storeRepository.findById(id)

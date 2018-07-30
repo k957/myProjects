@@ -4,24 +4,24 @@ import java.sql.Date;
 
 
 public class UserDto {
-	private Long user_id;
+	private Long userId;
 	
-	private Long merchant_id;
+	private Long merchantId;
 	
 	private String password;
-	private Date last_login;
-	public Long getUser_id() {
-		return user_id;
+	private Date lastLogin;
+	public Long getUserId() {
+		return userId;
 	}
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	
-	public Long getMerchant_id() {
-		return merchant_id;
+	public Long getMerchantId() {
+		return merchantId;
 	}
-	public void setMerchant_id(Long merchant_id) {
-		this.merchant_id = merchant_id;
+	public void setMerchantId(Long merchantId) {
+		this.merchantId = merchantId;
 	}
 	public String getPassword() {
 		return password;
@@ -29,11 +29,11 @@ public class UserDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getLast_login() {
-		return last_login;
+	public Date getLastLogin() {
+		return lastLogin;
 	}
-	public void setLast_login(Date last_login) {
-		this.last_login = last_login;
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 	
 	

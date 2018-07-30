@@ -11,10 +11,9 @@ public class MerchantAssembler {
 	public Merchant createMerchantEntity(MerchantDto merchantDto) {
 		Merchant merchant = new Merchant();
 		merchant.setName(merchantDto.getName());
-		merchant.setDisplay_name(merchantDto.getDisplay_name());
-		merchant.setCreated_at(merchantDto.getCreated_at());
-		merchant.setMail_id(merchantDto.getMail_id());
-		merchant.setMobile_no(merchantDto.getMobile_no());
+		merchant.setDisplayName(merchantDto.getDisplayName());
+		merchant.setMailId(merchantDto.getMailId());
+		merchant.setMobileNo(merchantDto.getMobileNo());
 		return merchant;
 	}
 }

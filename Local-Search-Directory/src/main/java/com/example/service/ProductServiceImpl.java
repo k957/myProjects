@@ -41,14 +41,15 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public Product create(ProductDto productDto) {
 		Product product = productAssembler.createProductEntity(productDto);
-		product.setCreated_at(new java.util.Date());
+		product.setCreatedAt(new java.util.Date());
 		productRepository.save(product);
+//		System.out.println(product.getId());
 		return product;
 	}
 
 	@Override
 	public void delete(List<Product> product) {
-
+		//declared in controller
 	}
 
 }

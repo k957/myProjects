@@ -4,6 +4,7 @@ import java.util.Date;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,8 @@ public class PaymentMethod {
 
 	private String code;
 	private String name;
-	private Date created_at;
+	@Column(name="created_at")
+	private Date createdAt;
 
 	public Long getId() {
 		return id;
@@ -60,21 +62,21 @@ public class PaymentMethod {
 		this.name = name;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public PaymentMethod(Long id, List<Store> stores, String code, String name, Date created_at) {
+	public PaymentMethod(Long id, List<Store> stores, String code, String name, Date createdAt) {
 		super();
 		this.id = id;
 		this.stores = stores;
 		this.code = code;
 		this.name = name;
-		this.created_at = created_at;
+		this.createdAt = createdAt;
 	}
 
 	public PaymentMethod() {
@@ -85,7 +87,7 @@ public class PaymentMethod {
 	@Override
 	public String toString() {
 		return "PaymentMethod [id=" + id + ", stores=" + stores + ", code=" + code + ", name=" + name + ", created_at="
-				+ created_at + "]";
+				+ createdAt + "]";
 	}
 
 }

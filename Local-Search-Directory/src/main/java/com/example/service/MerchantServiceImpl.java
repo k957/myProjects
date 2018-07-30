@@ -30,9 +30,9 @@ public class MerchantServiceImpl implements IMerchantService {
 	@Override
 	public String create(@Valid @RequestBody MerchantDto merchantDto) {
 		Merchant merchant = merchantAssembler.createMerchantEntity(merchantDto);
-		merchant.setCreated_at(new java.util.Date());
+		merchant.setCreatedAt(new java.util.Date());
 		User user = new User();
-		user.setUsername(merchant.getMail_id());
+		user.setUsername(merchant.getMailId());
 		PasswordGenerator pass = new PasswordGenerator();
 		String password = pass.generatePassword();
 		user.setPassword(password);
@@ -44,14 +44,13 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Override
 	public List<Merchant> viewAll() {
-		List<Merchant> merchant = merchantRepository.findAll();
-		return merchant;
+		return merchantRepository.findAll();
 	}
 
 	@Override
 	public Merchant viewOne(Long id) {
-		Merchant merchant = merchantRepository.getOne(id);
-		return merchant;
+		return merchantRepository.getOne(id);
+		 
 	}
 
 }

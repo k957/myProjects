@@ -2,6 +2,7 @@ package com.example.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,10 +34,14 @@ public class Feed {
 
 	private int quantity;
 	private float price;
-	private float sale_price;
-	private Date start_date;
-	private Date end_date;
-	private Date created_at;
+	@Column(name="sale_price")
+	private float salePrice;
+	@Column(name="start_date")
+	private Date startDate;
+	@Column(name="end_date")
+	private Date endDate;
+	@Column(name="created_at")
+	private Date createdAt;
 
 	public Long getId() {
 		return id;
@@ -89,40 +94,40 @@ public class Feed {
 		this.price = price;
 	}
 
-	public float getSale_price() {
-		return sale_price;
+	public float getSalePrice() {
+		return salePrice;
 	}
 
-	public void setSale_price(float sale_price) {
-		this.sale_price = sale_price;
+	public void setSalePrice(float salePrice) {
+		this.salePrice = salePrice;
 	}
 
-	public Date getStart_date() {
-		return start_date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEnd_date() {
-		return end_date;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Feed(Long id, Merchant merchant, Product product, Store store, int quantity, float price, float sale_price,
-			Date start_date, Date end_date, Date created_at) {
+	public Feed(Long id, Merchant merchant, Product product, Store store, int quantity, float price, float salePrice,
+			Date startDate, Date endDate, Date createdAt) {
 		super();
 		this.id = id;
 		this.merchant = merchant;
@@ -130,10 +135,10 @@ public class Feed {
 		this.store = store;
 		this.quantity = quantity;
 		this.price = price;
-		this.sale_price = sale_price;
-		this.start_date = start_date;
-		this.end_date = end_date;
-		this.created_at = created_at;
+		this.salePrice = salePrice;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.createdAt = createdAt;
 	}
 
 	public Feed() {

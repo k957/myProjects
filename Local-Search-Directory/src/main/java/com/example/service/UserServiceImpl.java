@@ -14,7 +14,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User loginUser(String username, String password) {
+		System.out.println(password+"=======hh======="+username);
 		User user = userRepository.findByUsernameAndPassword(username, password);
+		System.out.println(user+"====================user");
 		return user;
 	}
 

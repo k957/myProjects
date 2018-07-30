@@ -21,7 +21,7 @@ public class ProductAssembler {
 		List<Product> productList = new ArrayList<>();
 		productDtoList.forEach(productDto -> {
 			Product product = new Product();
-			Merchant merchant = merchantRepository.getOne(productDto.getMerchant_id());
+			Merchant merchant = merchantRepository.getOne(productDto.getMerchantId());
 			product.setMerchant(merchant);
 			product.setName(productDto.getName());
 			product.setColor(productDto.getColor());
@@ -36,7 +36,7 @@ public class ProductAssembler {
 	
 	public Product createProductEntity(ProductDto productDto) {
 		Product product = new Product();
-		Merchant merchant = merchantRepository.getOne(productDto.getMerchant_id());
+		Merchant merchant = merchantRepository.getOne(productDto.getMerchantId());
 		product.setMerchant(merchant);
 		product.setName(productDto.getName());
 		product.setColor(productDto.getColor());

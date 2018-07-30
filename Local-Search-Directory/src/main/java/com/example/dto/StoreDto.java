@@ -7,18 +7,18 @@ import com.example.model.PaymentMethod;
 public class StoreDto {
 	private List<PaymentMethod> paymentMethodId;
 
-	private Long merchant_id;
+	private Long merchantId;
 
 	private List<FeedDto> feedsDto;
 
 	private String name;
 	private String description;
-	private String postal_code;
+	private String postalCode;
 	private String address;
 	private String phone;
 	private double latitude;
 	private double longitude;
-	private String opening_hours;
+	private String openingHours;
 
 	public List<PaymentMethod> getPaymentMethodId() {
 		return paymentMethodId;
@@ -28,12 +28,12 @@ public class StoreDto {
 		this.paymentMethodId = paymentMethodId;
 	}
 
-	public Long getMerchant_id() {
-		return merchant_id;
+	public Long getMerchantId() {
+		return merchantId;
 	}
 
-	public void setMerchant_id(Long merchant_id) {
-		this.merchant_id = merchant_id;
+	public void setMerchantId(Long merchantId) {
+		this.merchantId = merchantId;
 	}
 
 	public List<FeedDto> getFeedsDto() {
@@ -60,12 +60,12 @@ public class StoreDto {
 		this.description = description;
 	}
 
-	public String getPostal_code() {
-		return postal_code;
+	public String getPostalCode() {
+		return postalCode;
 	}
 
-	public void setPostal_code(String postal_code) {
-		this.postal_code = postal_code;
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public String getAddress() {
@@ -100,12 +100,12 @@ public class StoreDto {
 		this.longitude = longitude;
 	}
 
-	public String getOpening_hours() {
-		return opening_hours;
+	public String getOpeningHours() {
+		return openingHours;
 	}
 
-	public void setOpening_hours(String opening_hours) {
-		this.opening_hours = opening_hours;
+	public void setOpeningHours(String openingHours) {
+		this.openingHours = openingHours;
 	}
 
 }

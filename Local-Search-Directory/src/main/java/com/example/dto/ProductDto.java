@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 public class ProductDto {
 
 	@NotNull(message = "merchant id cannot be null")
-	private Long merchant_id;
+	private Long merchantId;
 
 	private List<FeedDto> feedsDto;
 	@NotNull(message = "name cannot be null")
@@ -17,12 +17,12 @@ public class ProductDto {
 	private String color = null;
 	private String size = null;
 
-	public Long getMerchant_id() {
-		return merchant_id;
+	public Long getMerchantId() {
+		return merchantId;
 	}
 
-	public void setMerchant_id(Long merchant_id) {
-		this.merchant_id = merchant_id;
+	public void setMerchantId(Long merchantId) {
+		this.merchantId = merchantId;
 	}
 
 	public List<FeedDto> getFeedsDto() {

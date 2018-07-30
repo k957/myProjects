@@ -19,12 +19,15 @@ public class Merchant {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
-	@Column(unique = true)
-	private String display_name;
-	private String mail_id;
+	@Column(unique = true,name="display_name")
+	private String displayName;
+	@Column(name="mail_id")
+	private String mailId;
 	private char status;
-	private Date created_at;
-	private String mobile_no;
+	@Column(name="created_at")
+	private Date createdAt;
+	@Column(name="mobile_no")
+	private String mobileNo;
 	@OneToMany(mappedBy = "merchant", fetch = FetchType.LAZY)
 	private List<Feed> feeds;
 
@@ -34,12 +37,12 @@ public class Merchant {
 	@OneToMany(mappedBy = "merchant", fetch = FetchType.LAZY)
 	private List<Store> stores;
 
-	public String getMobile_no() {
-		return mobile_no;
+	public String getMobileNo() {
+		return mobileNo;
 	}
 
-	public void setMobile_no(String mobile_no) {
-		this.mobile_no = mobile_no;
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
 	}
 
 	public Long getId() {
@@ -58,20 +61,20 @@ public class Merchant {
 		this.name = name;
 	}
 
-	public String getDisplay_name() {
-		return display_name;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setDisplay_name(String display_name) {
-		this.display_name = display_name;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
-	public String getMail_id() {
-		return mail_id;
+	public String getMailId() {
+		return mailId;
 	}
 
-	public void setMail_id(String mail_id) {
-		this.mail_id = mail_id;
+	public void setMailId(String mailId) {
+		this.mailId = mailId;
 	}
 
 	public char getStatus() {
@@ -82,12 +85,12 @@ public class Merchant {
 		this.status = status;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public List<Feed> getFeeds() {
@@ -114,16 +117,16 @@ public class Merchant {
 		this.stores = stores;
 	}
 
-	public Merchant(Long id, String name, String display_name, String mail_id, char status, Date created_at,
-			String mobile_no, List<Feed> feeds, List<Product> products, List<Store> stores) {
+	public Merchant(Long id, String name, String displayName, String mailId, char status, Date createdAt,
+			String mobileNo, List<Feed> feeds, List<Product> products, List<Store> stores) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.display_name = display_name;
-		this.mail_id = mail_id;
+		this.displayName = displayName;
+		this.mailId = mailId;
 		this.status = status;
-		this.created_at = created_at;
-		this.mobile_no = mobile_no;
+		this.createdAt = createdAt;
+		this.mobileNo = mobileNo;
 		this.feeds = feeds;
 		this.products = products;
 		this.stores = stores;

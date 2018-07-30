@@ -14,19 +14,18 @@ public class MerchantDto {
 	@NotNull(message="name cannot be null")
 	private String name;
 	@NotNull(message="display_name cannot be null")
-	private String display_name;//username
+	private String displayName;//username
 	@Email(message="mail id should be in proper format")
-	private String mail_id;
+	private String mailId;
 	@Column(name = "status", nullable = false, columnDefinition = "char default A")
 	private char status;
-	private Date created_at;
 	@NotNull(message="mobile no. cannot be null")
-	private String mobile_no;
-	public String getMobile_no() {
-		return mobile_no;
+	private String mobileNo;
+	public String getMobileNo() {
+		return mobileNo;
 	}
-	public void setMobile_no(String mobile_no) {
-		this.mobile_no = mobile_no;
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
 	}
 	private List<FeedDto> feedDtoList;
 	private List<ProductDto> products;
@@ -39,17 +38,17 @@ public class MerchantDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDisplay_name() {
-		return display_name;
+	public String getDisplayName() {
+		return displayName;
 	}
-	public void setDisplay_name(String display_name) {
-		this.display_name = display_name;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
-	public String getMail_id() {
-		return mail_id;
+	public String getMailId() {
+		return mailId;
 	}
-	public void setMail_id(String mail_id) {
-		this.mail_id = mail_id;
+	public void setMailId(String mailId) {
+		this.mailId = mailId;
 	}
 	public char getStatus() {
 		return status;
@@ -57,12 +56,7 @@ public class MerchantDto {
 	public void setStatus(char status) {
 		this.status = status;
 	}
-	public Date getCreated_at() {
-		return created_at;
-	}
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
+
 
 	public List<FeedDto> getFeedDtoList() {
 		return feedDtoList;

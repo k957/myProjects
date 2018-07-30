@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +25,13 @@ import com.example.model.Feed;
 import com.example.repository.IFeedRepository;
 import com.example.service.IFeedService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import redis.clients.jedis.Jedis;
 
 @RestController
 @RequestMapping("/v1/feed")
+@Api(value="Feed Controller REST Endpoint",description="Feed Controller API")
 public class FeedController {
 	@Autowired
 	private IFeedRepository feedRepository;
@@ -38,12 +42,13 @@ public class FeedController {
 	String err = "JWT Token is missing";
 	Jedis jedis = new Jedis("localhost");
 
-	@GetMapping
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value="returns the list of all feeds",response=FeedDto.class)
 	public ResponseEntity<?> viewAll() {
 		if (jedis.get("users::1") != null) {
-			List<Feed> Feed = feedService.viewAll();
+			List<Feed> feed = feedService.viewAll();
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(Feed, responseHeader, HttpStatus.OK);
+			return new ResponseEntity<>(feed, responseHeader, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -51,11 +56,12 @@ public class FeedController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation(value="returns one feed whose ID provided in the URL",response=FeedDto.class)
 	public ResponseEntity<?> viewOone(@PathVariable("id") Long id) {
 		if (jedis.get("users::1") != null) {
-			Feed Feed = feedService.viewOne(id);
+			Feed feed = feedService.viewOne(id);
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(Feed, responseHeader, HttpStatus.OK);
+			return new ResponseEntity<>(feed, responseHeader, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -63,11 +69,12 @@ public class FeedController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> create(@Valid @RequestBody FeedDto FeedDto) {
+	@ApiOperation(value="method to create feeds",response=FeedDto.class)
+	public ResponseEntity<?> create(@Valid @RequestBody FeedDto feedDto) {
 		if (jedis.get("users::1") != null) {
-			Feed Feed = feedService.create(FeedDto);
+			Feed feed = feedService.create(feedDto);
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(Feed, responseHeader, HttpStatus.CREATED);
+			return new ResponseEntity<>(feed, responseHeader, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -75,19 +82,20 @@ public class FeedController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @Valid @RequestBody FeedDto FeedDto) {
+	@ApiOperation(value="Updates Feed whose ID is provided in the URL",response=FeedDto.class)
+	public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @Valid @RequestBody FeedDto feedDto) {
 		if (jedis.get("users::1") != null) {
-			Feed Feed = feedRepository.findById(id)
+			Feed feed = feedRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Feed", "Feed ID", id));
-			Feed.setCreated_at(new Date());
-			Feed.setEnd_date(FeedDto.getEnd_date());
-			Feed.setPrice(FeedDto.getPrice());
-			Feed.setQuantity(FeedDto.getQuantity());
-			Feed.setSale_price(FeedDto.getSale_price());
-			Feed.setStart_date(FeedDto.getStart_date());
-			feedRepository.save(Feed);
+			feed.setCreatedAt(new Date());
+			feed.setEndDate(feedDto.getEndDate());
+			feed.setPrice(feedDto.getPrice());
+			feed.setQuantity(feedDto.getQuantity());
+			feed.setSalePrice(feedDto.getSalePrice());
+			feed.setStartDate(feedDto.getStartDate());
+			feedRepository.save(feed);
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(Feed, responseHeader, HttpStatus.CREATED);
+			return new ResponseEntity<>(feed, responseHeader, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -95,11 +103,12 @@ public class FeedController {
 	}
 
 	@DeleteMapping("/{id}")
+	@ApiOperation(value="Deletes Feed whose ID is provided in the URL",response=FeedDto.class)
 	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
 		if (jedis.get("users::1") != null) {
-			Feed Feed = feedRepository.findById(id)
+			Feed feed = feedRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Feed", "Feed ID", id));
-			feedRepository.delete(Feed);
+			feedRepository.delete(feed);
 			return ResponseEntity.ok().build();
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);

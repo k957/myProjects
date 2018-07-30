@@ -4,6 +4,7 @@ import java.util.Date;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,8 @@ public class Product {
 	private String description;
 	private String color;
 	private String size;
-	private Date created_at;
+	@Column(name="created_at")
+	private Date createdAt;
 
 	public Long getId() {
 		return id;
@@ -85,12 +87,12 @@ public class Product {
 		this.size = size;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public List<Feed> getFeeds() {

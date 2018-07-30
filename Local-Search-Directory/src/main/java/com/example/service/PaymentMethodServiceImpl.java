@@ -37,7 +37,7 @@ public class PaymentMethodServiceImpl implements IPaymentMethodService {
 	@Override
 	public PaymentMethod create(PaymentMethodDto paymentMethodDto) {
 		PaymentMethod paymentMethod = paymentMethodAssembler.createPaymentEntity(paymentMethodDto);
-		paymentMethod.setCreated_at(new Date());
+		paymentMethod.setCreatedAt(new Date());
 		paymentMethodRepository.save(paymentMethod);
 		return paymentMethod;
 	}
@@ -49,6 +49,7 @@ public class PaymentMethodServiceImpl implements IPaymentMethodService {
 
 	@Override
 	public void delete(List<PaymentMethod> productList) {
+		//created in controller
 	}
 
 }

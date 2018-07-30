@@ -24,10 +24,13 @@ import com.example.model.PaymentMethod;
 import com.example.repository.IPaymentMethodRepository;
 import com.example.service.IPaymentMethodService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import redis.clients.jedis.Jedis;
 
 @RestController
 @RequestMapping("/v1/PaymentMethod")
+@Api(value="Payment method controller REST Endpoint",description="Payment Method API")
 public class PaymentMethodController {
 
 	@Autowired
@@ -40,11 +43,12 @@ public class PaymentMethodController {
 	Jedis jedis = new Jedis("localhost");
 
 	@GetMapping
+	@ApiOperation(value="returns the list of all Payment Methods available",response=PaymentMethodDto.class)
 	public ResponseEntity<?> viewAll() {
 		if (jedis.get("users::1") != null) {
-			List<PaymentMethod> PaymentMethod = paymentMethodservice.viewAll();
+			List<PaymentMethod> paymentMethod = paymentMethodservice.viewAll();
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(PaymentMethod, responseHeader, HttpStatus.OK);
+			return new ResponseEntity<>(paymentMethod, responseHeader, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -52,11 +56,12 @@ public class PaymentMethodController {
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation(value="returns one Payment Method whose ID provided in the URL",response=PaymentMethodDto.class)
 	public ResponseEntity<?> viewOne(@PathVariable("id") Long id) {
 		if (jedis.get("users::1") != null) {
-			PaymentMethod PaymentMethod = paymentMethodservice.viewOne(id);
+			PaymentMethod paymentMethod = paymentMethodservice.viewOne(id);
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(PaymentMethod, responseHeader, HttpStatus.OK);
+			return new ResponseEntity<>(paymentMethod, responseHeader, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -64,11 +69,12 @@ public class PaymentMethodController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> create(@Valid @RequestBody PaymentMethodDto PaymentMethodDto) {
+	@ApiOperation(value="method to create Payment Methods",response=PaymentMethodDto.class)
+	public ResponseEntity<?> create(@Valid @RequestBody PaymentMethodDto paymentMethodDto) {
 		if (jedis.get("users::1") != null) {
-			PaymentMethod PaymentMethod = paymentMethodservice.create(PaymentMethodDto);
+			PaymentMethod paymentMethod = paymentMethodservice.create(paymentMethodDto);
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(PaymentMethod, responseHeader, HttpStatus.CREATED);
+			return new ResponseEntity<>(paymentMethod, responseHeader, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -76,17 +82,18 @@ public class PaymentMethodController {
 	}
 
 	@PutMapping("/{id}")
+	@ApiOperation(value="Updates Payment Method whose ID is provided in the URL",response=PaymentMethodDto.class)
 	public ResponseEntity<?> update(@PathVariable(value = "id") Long id,
-			@Valid @RequestBody PaymentMethodDto PaymentMethodDto) {
+			@Valid @RequestBody PaymentMethodDto paymentMethodDto) {
 		if (jedis.get("users::1") != null) {
-			PaymentMethod PaymentMethod = paymentMethodRepository.findById(id)
+			PaymentMethod paymentMethod = paymentMethodRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("PaymentMethod", "PaymentMethod ID", id));
-			PaymentMethod.setCreated_at(new Date());
-			PaymentMethod.setCode(PaymentMethodDto.getCode());
-			PaymentMethod.setName(PaymentMethodDto.getName());
-			paymentMethodRepository.save(PaymentMethod);
+			paymentMethod.setCreatedAt(new Date());
+			paymentMethod.setCode(paymentMethodDto.getCode());
+			paymentMethod.setName(paymentMethodDto.getName());
+			paymentMethodRepository.save(paymentMethod);
 			HttpHeaders responseHeader = new HttpHeaders();
-			return new ResponseEntity<>(PaymentMethod, responseHeader, HttpStatus.CREATED);
+			return new ResponseEntity<>(paymentMethod, responseHeader, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
 		}
@@ -94,11 +101,12 @@ public class PaymentMethodController {
 	}
 
 	@DeleteMapping("/{id}")
+	@ApiOperation(value="Deletes Product whose ID is provided in the URL",response=PaymentMethodDto.class)
 	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
 		if (jedis.get("users::1") != null) {
-			PaymentMethod PaymentMethod = paymentMethodRepository.findById(id)
+			PaymentMethod paymentMethod = paymentMethodRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("PaymentMethod", "PaymentMethod ID", id));
-			paymentMethodRepository.delete(PaymentMethod);
+			paymentMethodRepository.delete(paymentMethod);
 			return ResponseEntity.ok().build();
 		} else {
 			return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);

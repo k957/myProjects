@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,13 @@ import com.example.repository.IUserRepository;
 import com.example.security.SecurityAuthenticationTokenFilter;
 import com.example.service.IUserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import redis.clients.jedis.Jedis;
+
 @RestController
-@RequestMapping("/Logout")
+@RequestMapping("/LocalSearchDirectory/Logout")
+@Api(value="Logout Controller REST Endpoint",description="Merchant Logout API")
 public class LogoutController {
 
 	@Autowired
@@ -30,20 +34,22 @@ public class LogoutController {
 	@Autowired
 	private SecurityAuthenticationTokenFilter securityAuthenticationTokenFilter;
 
-	@CacheEvict(value = "users", allEntries = true)
+	Jedis jedis = new Jedis("localhost");
+	
 	@DeleteMapping()
+	@ApiOperation(value="Merchant Logout method")
 	public Map<String, Object> logout(HttpServletRequest request) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		try {
 			String token = securityAuthenticationTokenFilter.getToken(request);
 			User user = userRepository.findByToken(token);
-			System.out.println(user);
 			user.setToken(null);
 			userService.save(user);
+			jedis.del(token);
 			map.put("status", HttpStatus.OK);
 			map.put("Message", "Successfully logout");
 		} catch (Exception e) {
-
+			
 		}
 		return map;
 	}

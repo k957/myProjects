@@ -8,7 +8,7 @@ import com.example.model.Feed;
 public interface IFeedService {
 	List<Feed> viewAll();
 	Feed viewOne(Long id);
-	Feed update(FeedDto FeedDto);
-	void delete(List<Feed> FeedList);
-	Feed create(FeedDto FeedDtoList);
+	Feed update(FeedDto feedDto);
+	void delete(List<Feed> feedList);
+	Feed create(FeedDto feedDtoList);
 }

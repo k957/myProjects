@@ -39,12 +39,12 @@ public class StoreServiceImpl implements IStoreService {
 	}
 
 	@Override
-	public Store update(Store StoreDto) {
+	public Store update(Store storeDto) {
 		return null;
 	}
 
 	@Override
-	public void delete(List<Store> StoreList) {
+	public void delete(List<Store> storeList) {
 
 	}
 

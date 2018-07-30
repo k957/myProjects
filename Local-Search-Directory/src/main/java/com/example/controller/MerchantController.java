@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,13 @@ import com.example.model.Merchant;
 import com.example.repository.IMerchantRepository;
 import com.example.service.IMerchantService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import redis.clients.jedis.Jedis;
 
 @RestController
 @RequestMapping("/v1/merchant")
+@Api(value="Merchant Controller REST Endpoint",description="Merchant Info and update API")
 public class MerchantController {
 
 	@Autowired
@@ -36,7 +40,7 @@ public class MerchantController {
 
 	String err = "JWT Token is missing";
 	Jedis jedis = new Jedis("localhost");
-
+	@ApiOperation(value="Returns the list of all merchants registered",response=MerchantDto.class)
 	@GetMapping
 	public ResponseEntity<?> viewAll() {
 		if (jedis.get("users::1") != null) {
@@ -48,6 +52,7 @@ public class MerchantController {
 		}
 	}
 
+	@ApiOperation(value="Returns one Merchant details whose ID is provided in the URL",response=MerchantDto.class)
 	@GetMapping("/{id}")
 	public ResponseEntity<?> viewOne(@PathVariable(value = "id") Long id) {
 		if (jedis.get("users::1") != null) {
@@ -60,18 +65,19 @@ public class MerchantController {
 		}
 	}
 
-	@PutMapping("/{id}")
+	@ApiOperation(value="Updates Merchant whose ID is provided in the URL",response=MerchantDto.class)
+	@PutMapping(path="/{id}",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @Valid @RequestBody MerchantDto merchantDto) {
 		if (jedis.get("users::1") != null) {
 			Merchant merchant = merchantRepository.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Merchant", "id", id));
 
-			merchant.setCreated_at(new Date());
-			merchant.setDisplay_name(merchantDto.getDisplay_name());
+			merchant.setCreatedAt(new Date());
+			merchant.setDisplayName(merchantDto.getDisplayName());
 
 			merchant.setName(merchantDto.getName());
 			merchant.setStatus(merchantDto.getStatus());
-			merchant.setMobile_no(merchantDto.getMobile_no());
+			merchant.setMobileNo(merchantDto.getMobileNo());
 
 			Merchant updatedMerchant = merchantRepository.save(merchant);
 			HttpHeaders responseHeaders = new HttpHeaders();

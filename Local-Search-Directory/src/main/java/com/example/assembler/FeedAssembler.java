@@ -38,10 +38,10 @@ public class FeedAssembler {
 			feed.setProduct(product);
 			feed.setMerchant(merchant);
 			feed.setStore(store);
-			feed.setEnd_date(feedDto.getEnd_date());
+			feed.setEndDate(feedDto.getEndDate());
 			feed.setQuantity(feedDto.getQuantity());
-			feed.setSale_price(feedDto.getSale_price());
-			feed.setStart_date(feedDto.getStart_date());
+			feed.setSalePrice(feedDto.getSalePrice());
+			feed.setStartDate(feedDto.getStartDate());
 
 			feeds.add(feed);
 		});
@@ -58,10 +58,10 @@ public class FeedAssembler {
 		feed.setProduct(product);
 		feed.setMerchant(merchant);
 		feed.setStore(store);
-		feed.setEnd_date(feedDto.getEnd_date());
+		feed.setEndDate(feedDto.getEndDate());
 		feed.setQuantity(feedDto.getQuantity());
-		feed.setSale_price(feedDto.getSale_price());
-		feed.setStart_date(feedDto.getStart_date());
+		feed.setSalePrice(feedDto.getSalePrice());
+		feed.setStartDate(feedDto.getStartDate());
 		return feed;
 	}
 }
